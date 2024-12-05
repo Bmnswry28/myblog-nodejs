@@ -1,6 +1,8 @@
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
+const swaggerUi = require('swagger-ui-express');
+const swaggerDocument = require('./swagger.json');
 const port = 3000;
 app.use(bodyParser.json());
 let articles = [
@@ -28,3 +30,4 @@ app.post('/articles',(req,res) =>{
     articles.push(newArticle);
     res.status(201).json(newArticle);
 })
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
